@@ -47,8 +47,12 @@ async def watch_file(log_file, webhook_url):
       
       # Get all new log messages since the last message sent to Discord
       new_logs = []
-      should_append = not bool(last_log_sent)
-      for line in logs.split("\n"):
+      should_append = False
+      split_logs = logs.split("\n")
+    
+      if last_log_sent != "" and last_log_sent not in split_logs:
+          should_append = True
+      for line in split_logs:
           if should_append and line != "":
               new_logs.append(line)
           elif line == last_log_sent or last_log_sent == "":
