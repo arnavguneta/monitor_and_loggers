@@ -3,6 +3,7 @@ import os
 import asyncio
 import random
 import time
+import gc
 
 err_file = '/home/arnie/.pm2/logs/coolkidbot-error.log'
 out_file = '/home/arnie/.pm2/logs/coolkidbot-out.log'
