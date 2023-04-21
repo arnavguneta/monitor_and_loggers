@@ -46,7 +46,7 @@ async def watch_file(log_file, webhook_url):
       
       # Get all new log messages since the last message sent to Discord
       new_logs = []
-      should_append = False
+      should_append = not bool(last_log_sent)
       for line in logs.split("\n"):
           if should_append and line != "":
               new_logs.append(line)
@@ -78,7 +78,10 @@ async def watch_file(log_file, webhook_url):
         last_log_sent = new_logs[-1]
         with open(f"{log_file}.last_log_sent", "w") as f:
           f.write(last_log_sent)
-
+      
+      # Run garbage collection manually to free up any unused memory
+      gc.collect()
+        
       # Wait for 30 seconds before checking the log file again
       await asyncio.sleep(30)
 
