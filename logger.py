@@ -88,7 +88,7 @@ async def watch_file(log_file, webhook_url):
       gc.collect()
         
       # Wait for 30 seconds before checking the log file again
-      await asyncio.sleep(30)
+      await asyncio.sleep(60*5)
 
 async def main():
     await asyncio.gather(
