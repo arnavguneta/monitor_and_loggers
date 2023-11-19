@@ -5,20 +5,17 @@ import random
 import time
 import gc
 
-err_file = '/home/arnie/.pm2/logs/coolkidbot-error.log'
-out_file = '/home/arnie/.pm2/logs/coolkidbot-out.log'
-site_out_file = '/home/arnie/.pm2/logs/coolkidsite-out.log'
+err_file = "/home/arnie/.pm2/logs/twitch-discord-error.log"
 
 # Replace with your own webhook URLs
 err_webhook_url = os.environ.get('ERR_WEBHOOK_URL')
-out_webhook_url = os.environ.get('OUT_WEBHOOK_URL')
 
 # Set the maximum length for each message
 max_message_length = 1800
 
 def post_to_discord(text, url):
     payload = {
-        'username': 'coolkidbot logs',
+        'username': 'chat loggers err',
         'avatar_url': 'https://i.imgur.com/7GeWG1u.png',
         'content': text
     }
@@ -92,9 +89,7 @@ async def watch_file(log_file, webhook_url):
 
 async def main():
     await asyncio.gather(
-      watch_file(out_file, out_webhook_url),
       watch_file(err_file, err_webhook_url),
-      watch_file(site_out_file, out_webhook_url)
     )
   
 if __name__ == '__main__':
